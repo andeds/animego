@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мой Аниме Сайт</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #141414; color: #fff; margin: 0; padding: 0; }
+        header { display: flex; justify-content: space-between; align-items: center; padding: 15px 30px; background-color: #1f1f1f; border-bottom: 2px solid #2c2c2c; }
+        .logo { font-size: 24px; font-weight: bold; color: #ff7f50; }
+        header input { padding: 8px 15px; width: 250px; border-radius: 4px; border: 1px solid #444; background-color: #2a2a2a; color: #fff; }
+        main { padding: 30px; }
+        .anime-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; margin-top: 20px; }
+        .anime-card { background-color: #1f1f1f; border-radius: 8px; overflow: hidden; cursor: pointer; transition: transform 0.2s; }
+        .anime-card:hover { transform: scale(1.05); }
+        .anime-card img { width: 100%; height: 260px; object-fit: cover; }
+        .anime-card h3 { font-size: 14px; padding: 10px; margin: 0; text-align: center; }
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); }
+        .modal-content { background-color: #1f1f1f; margin: 5% auto; padding: 20px; width: 80%; max-width: 900px; border-radius: 8px; position: relative; }
+        .close { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
+        .close:hover { color: #fff; }
+        .video-container { position: relative; padding-bottom: 56.25%; height: 0; margin-top: 15px; }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 4px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">🎬 MyAnime</div>
+        <input type="text" id="search" placeholder="Поиск аниме..." onkeyup="searchAnime()">
+    </header>
+
+    <main>
+        <h1>Популярное аниме</h1>
+        <div class="anime-grid" id="anime-container">
+
+            <div class="anime-card" onclick="openPlayer('https://kodik.info/find-by-shikimori/16498', 'Атака титанов')">
+                <img src="https://shikimori.one/system/animes/original/16498.jpg?1711973439" alt="Атака титанов">
+                <h3>Атака титанов</h3>
+            </div>
+    
+            <div class="anime-card" onclick="openPlayer('https://kodik.info/find-by-shikimori/1535', 'Тетрадь смерти')">
+                <img src="https://shikimori.one/assets/globals/missing_original.jpg?1711947446" alt="Тетрадь смерти">
+                <h3>Тетрадь смерти</h3>
+            </div>
+    
+            <div class="anime-card" onclick="openPlayer('https://kodik.info/find-by-shikimori/5114', 'Стальной алхимик: Братство')">
+                <img src="https://shikimori.one/system/animes/original/5114.jpg?1711949773" alt="Стальной алхимик: Братство">
+                <h3>Стальной алхимик: Братство</h3>
+            </div>
+    
+            <div class="anime-card" onclick="openPlayer('https://kodik.info/find-by-shikimori/30276', 'Ванпанчмен')">
+                <img src="https://shikimori.one/system/animes/original/30276.jpg?1711967568" alt="Ванпанчмен">
+                <h3>Ванпанчмен</h3>
+            </div>
+    
+            <div class="anime-card" onclick="openPlayer('https://kodik.info/find-by-shikimori/38000', 'Клинок, рассекающий демонов')">
+                <img src="https://shikimori.one/system/animes/original/38000.jpg?1711958556" alt="Клинок, рассекающий демонов">
+                <h3>Клинок, рассекающий демонов</h3>
+            </div>
+    
+            <div class="anime-card" onclick="openPlayer('https://kodik.info/find-by-shikimori/31964', 'Моя геройская академия')">
+                <img src="https://shikimori.one/system/animes/original/31964.jpg?1711944324" alt="Моя геройская академия">
+                <h3>Моя геройская академия</h3>
+            </div>
+    
+            <div class="anime-card" onclick="openPlayer('https://kodik.info/find-by-shikimori/11757', 'Мастера Меча Онлайн')">
+                <img src="https://shikimori.one/system/animes/original/11757.jpg?1711975853" alt="Мастера Меча Онлайн">
+                <h3>Мастера Меча Онлайн</h3>
+            </div>
+    
+            <div class="anime-card" onclick="openPlayer('https://kodik.info/find-by-shikimori/11061', 'Охотник х Охотник (2011)')">
+                <img src="https://shikimori.one/system/animes/original/11061.jpg?1711954447" alt="Охотник х Охотник (2011)">
+                <h3>Охотник х Охотник (2011)</h3>
+            </div>
+    
+            <div class="anime-card" onclick="openPlayer('https://kodik.info/find-by-shikimori/20', 'Наруто')">
+                <img src="https://shikimori.one/system/animes/original/20.jpg?1711965679" alt="Наруто">
+                <h3>Наруто</h3>
+            </div>
+    
+            <div class="anime-card" onclick="openPlayer('https://kodik.info/find-by-shikimori/22319', 'Токийский гуль')">
+                <img src="https://shikimori.one/system/animes/original/22319.jpg?1711978006" alt="Токийский гуль">
+                <h3>Токийский гуль</h3>
+            </div>
+    
+            <div class="anime-card" onclick="openPlayer('https://kodik.info/find-by-shikimori/32281', 'Твоё имя')">
+                <img src="https://shikimori.one/system/animes/original/32281.jpg?1711958651" alt="Твоё имя">
+                <h3>Твоё имя</h3>
+            </div>
+    
+            <div class="anime-card" onclick="openPlayer('https://kodik.info/find-by-shikimori/40748', 'Магическая битва')">
+                <img src="https://shikimori.one/system/animes/original/40748.jpg?1711956606" alt="Магическая битва">
+                <h3>Магическая битва</h3>
+            </div>
+    
+            <div class="anime-card" onclick="openPlayer('https://kodik.info/find-by-shikimori/25777', 'Атака титанов 2')">
+                <img src="https://shikimori.one/system/animes/original/25777.jpg?1711973455" alt="Атака титанов 2">
+                <h3>Атака титанов 2</h3>
+            </div>
+    
+            <div class="anime-card" onclick="openPlayer('https://kodik.info/find-by-shikimori/9253', 'Врата Штейна')">
+                <img src="https://shikimori.one/system/animes/original/9253.jpg?1711975211" alt="Врата Штейна">
+                <h3>Врата Штейна</h3>
+            </div>
+    
+            <div class="anime-card" onclick="openPlayer('https://kodik.info/find-by-shikimori/1735', 'Наруто: Ураганные хроники')">
+                <img src="https://shikimori.one/system/animes/original/1735.jpg?1711965662" alt="Наруто: Ураганные хроники">
+                <h3>Наруто: Ураганные хроники</h3>
+            </div>
+    
+            <div class="anime-card" onclick="openPlayer('https://kodik.info/find-by-shikimori/33486', 'Моя геройская академия 2')">
+                <img src="https://shikimori.one/system/animes/original/33486.jpg?1711944315" alt="Моя геройская академия 2">
+                <h3>Моя геройская академия 2</h3>
+            </div>
+    
+            <div class="anime-card" onclick="openPlayer('https://kodik.info/find-by-shikimori/21', 'Ван-Пис')">
+                <img src="https://shikimori.one/system/animes/original/21.jpg?1718520367" alt="Ван-Пис">
+                <h3>Ван-Пис</h3>
+            </div>
+    
+            <div class="anime-card" onclick="openPlayer('https://kodik.info/find-by-shikimori/35760', 'Атака титанов 3')">
+                <img src="https://shikimori.one/system/animes/original/35760.jpg?1711973466" alt="Атака титанов 3">
+                <h3>Атака титанов 3</h3>
+            </div>
+    
+            <div class="anime-card" onclick="openPlayer('https://kodik.info/find-by-shikimori/28851', 'Форма голоса')">
+                <img src="https://shikimori.one/system/animes/original/28851.jpg?1711959177" alt="Форма голоса">
+                <h3>Форма голоса</h3>
+            </div>
+    
+            <div class="anime-card" onclick="openPlayer('https://kodik.info/find-by-shikimori/38524', 'Атака титанов 3. Часть 2')">
+                <img src="https://shikimori.one/system/animes/original/38524.jpg?1711973463" alt="Атака титанов 3. Часть 2">
+                <h3>Атака титанов 3. Часть 2</h3>
+            </div>
+    
+            <div class="anime-card" onclick="openPlayer('https://kodik.info/find-by-shikimori/19815', 'Нет игры — нет жизни')">
+                <img src="https://shikimori.one/system/animes/original/19815.jpg?1711966406" alt="Нет игры — нет жизни">
+                <h3>Нет игры — нет жизни</h3>
+            </div>
+    
+            <div class="anime-card" onclick="openPlayer('https://kodik.info/find-by-shikimori/1575', 'Код Гиас: Восставший Лелуш')">
+                <img src="https://shikimori.one/system/animes/original/1575.jpg?1711946588" alt="Код Гиас: Восставший Лелуш">
+                <h3>Код Гиас: Восставший Лелуш</h3>
+            </div>
+    
+            <div class="anime-card" onclick="openPlayer('https://kodik.info/find-by-shikimori/31240', 'Re:Zero. Жизнь с нуля в альтернативном мире')">
+                <img src="https://shikimori.one/system/animes/original/31240.jpg?1711970097" alt="Re:Zero. Жизнь с нуля в альтернативном мире">
+                <h3>Re:Zero. Жизнь с нуля в альтернативном мире</h3>
+            </div>
+    
+            <div class="anime-card" onclick="openPlayer('https://kodik.info/find-by-shikimori/23273', 'Твоя апрельская ложь')">
+                <img src="https://shikimori.one/system/animes/original/23273.jpg?1711973143" alt="Твоя апрельская ложь">
+                <h3>Твоя апрельская ложь</h3>
+            </div>
+    
+        </div>
+    </main>
+
+    <div id="player-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closePlayer()">&times;</span>
+            <h2 id="modal-title">Просмотр</h2>
+            <div class="video-container">
+                <iframe id="anime-player" src="" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openPlayer(url, title) {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('anime-player').src = url;
+            document.getElementById('player-modal').style.display = 'block';
+        }
+
+        function closePlayer() {
+            document.getElementById('modal-title').innerText = 'Просмотр';
+            document.getElementById('anime-player').src = '';
+            document.getElementById('player-modal').style.display = 'none';
+        }
+
+        function searchAnime() {
+            let input = document.getElementById('search').value.toLowerCase();
+            let cards = document.getElementsByClassName('anime-card');
+            for (let i = 0; i < cards.length; i++) {
+                let title = cards[i].getElementsByTagName('h3')[0].innerText.toLowerCase();
+                cards[i].style.display = title.includes(input) ? '' : 'none';
+            }
+        }
+    </script>
+</body>
+</html>
